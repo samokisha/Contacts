@@ -10,7 +10,12 @@ public class Contact {
     public Contact(String name, String surname, String number) {
         this.name = name;
         this.surname = surname;
-        this.number = number;
+
+        if (number == null) {
+            this.number = "";
+        } else {
+            this.number = number;
+        }
     }
 
     public String getName() {
@@ -30,11 +35,18 @@ public class Contact {
     }
 
     public String getNumber() {
+        if (number.isEmpty()) {
+            return "[no number]";
+        }
         return number;
     }
 
     public void setNumber(String number) {
-        this.number = number;
+        if (number == null) {
+            this.number = "";
+        } else {
+            this.number = number;
+        }
     }
 
     @Override

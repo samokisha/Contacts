@@ -58,4 +58,9 @@ public interface Storage {
      */
     boolean hasContact(Contact contact);
 
+    int count();
+
+    List<Contact> getAll();
+
+    boolean updateContact(int index, Contact contact);
 }

@@ -58,4 +58,20 @@ public class MemoryStorage implements Storage {
     public boolean hasContact(Contact contact) {
         return contacts.contains(contact);
     }
+
+    @Override
+    public int count() {
+        return contacts.size();
+    }
+
+    @Override
+    public List<Contact> getAll() {
+        return new ArrayList<>(contacts);
+    }
+
+    @Override
+    public boolean updateContact(int index, Contact contact) {
+        contacts.set(index, contact);
+        return true;
+    }
 }

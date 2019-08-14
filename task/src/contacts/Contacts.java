@@ -3,6 +3,8 @@ package contacts;
 import contacts.entity.Contact;
 import contacts.util.Storage;
 
+import java.util.List;
+
 public class Contacts {
 
     private final Storage storage;
@@ -23,7 +25,7 @@ public class Contacts {
      */
     public boolean addContact(String name, String surname, String number) {
         Contact contact = new Contact(name, surname, number);
-        if (storage.hasContact(contact)) {
+        if (!storage.hasContact(contact)) {
             storage.save(contact);
             return true;
         } else {
@@ -31,4 +33,19 @@ public class Contacts {
         }
     }
 
+    public int getCount() {
+        return storage.count();
+    }
+
+    public List<Contact> getAll() {
+        return storage.getAll();
+    }
+
+    public boolean remove(Contact contact) {
+        return storage.delete(contact);
+    }
+
+    public boolean updateContact(int index, Contact contact) {
+        return storage.updateContact(index, contact);
+    }
 }

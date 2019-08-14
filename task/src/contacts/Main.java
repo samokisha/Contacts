@@ -1,6 +1,8 @@
-package contacts.app;
+package contacts;
 
 import contacts.Contacts;
+import contacts.app.ConsoleView;
+import contacts.app.MemoryStorage;
 
 public class Main {
     public static void main(String[] args) {
