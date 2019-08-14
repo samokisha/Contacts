@@ -18,9 +18,10 @@ public class Contacts {
 
     /**
      * Add new {@link Contact} to storage.
-     * @param name Name of contact.
+     *
+     * @param name    Name of contact.
      * @param surname Surname of contact.
-     * @param number Phone number of contact.
+     * @param number  Phone number of contact.
      * @return Returned {@code true} if successful added, else {@code false}.
      */
     public boolean addContact(String name, String surname, String number) {

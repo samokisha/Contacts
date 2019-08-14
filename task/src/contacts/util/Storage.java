@@ -11,6 +11,7 @@ public interface Storage {
 
     /**
      * Save contact in storage.
+     *
      * @param contact A {@link Contact} to save.
      * @return Return {@code true} if saved correct, else return {@code false}.
      */
@@ -18,6 +19,7 @@ public interface Storage {
 
     /**
      * Find the same {@link Contact} in storage.
+     *
      * @param contact Instance of {@link Contact}.
      * @return Instance of {@link Contact} or null.
      */
@@ -25,6 +27,7 @@ public interface Storage {
 
     /**
      * Find {@link Contact} (-s) in storage by the name.
+     *
      * @param name Contact's name.
      * @return List of found contacts.
      */
@@ -32,6 +35,7 @@ public interface Storage {
 
     /**
      * Find {@link Contact} (-s) in storage by the surname.
+     *
      * @param surname Contact's surname.
      * @return List of found contacts.
      */
@@ -39,6 +43,7 @@ public interface Storage {
 
     /**
      * Find {@link Contact} (-s) in storage by the number.
+     *
      * @param number Contact's number.
      * @return List of found contacts.
      */
@@ -46,6 +51,7 @@ public interface Storage {
 
     /**
      * Delete {@link Contact} from storage.
+     *
      * @param contact Contact to delete.
      * @return Return {@code true} if deleted, {@code false} if not exist.
      */
@@ -53,6 +59,7 @@ public interface Storage {
 
     /**
      * Is such a contact stored?
+     *
      * @param contact Contact to check.
      * @return Returned {@code true} if has, else {@code false}.
      */

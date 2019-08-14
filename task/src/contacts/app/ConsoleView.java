@@ -9,7 +9,23 @@ import java.util.regex.Pattern;
 
 public class ConsoleView {
 
-    // todo: replace all string messages to constants
+    private static final String COUNT_CONTACT_MSG_PATTERN = "The Phone Book has %d records.";
+    private static final String EDIT_NO_RECORDS_MSG = "No records to edit!";
+    private static final String EDIT_SELECT_CONTACT_MSG = "Select a field (name, surname, number):";
+    private static final String EDIT_ENTER_NAME_MSG = "Enter name:";
+    private static final String EDIT_ENTER_SURNAME_MSG = "Enter surname:";
+    private static final String EDIT_ENTER_NUMBER_MSG = "Enter number:";
+    private static final String EDIT_NOT_VALID_NUMBER_MSG = "Entered number is not valid!";
+    private static final String EDIT_UPDATE_MSG = "The record updated!";
+    private static final String REMOVE_NO_RECORDS_MSG = "No records to remove!";
+    private static final String REMOVE_RECORD_REMOVED_MSG = "The record removed!";
+    private static final String SELECT_RECORD_MSG = "Select a record:";
+    private static final String SHOW_MENU_SELECT_MSG = "Enter action (add, remove, edit, count, list, exit):";
+    private static final String ADD_ENTER_NAME_MSG = "Enter the name:";
+    private static final String ADD_ENTER_SURNAME_MSG = "Enter the surname:";
+    private static final String ADD_ENTER_NUMBER_MSG = "Enter the number:";
+    private static final String ADD_WRONG_NUMBER_MSG = "Wrong number format!";
+    private static final String ADD_RECORD_ADDED_MSG = "The record added.";
 
     private final Contacts contacts;
     private final Scanner scanner;
@@ -56,14 +72,14 @@ public class ConsoleView {
 
     private void countContacts() {
         int count = contacts.getCount();
-        System.out.printf("The Phone Book has %d records.", count);
+        System.out.printf(COUNT_CONTACT_MSG_PATTERN, count);
 
         currentState = ConsoleViewState.MENU;
     }
 
     private void editContact() {
         if (contacts.getCount() == 0) {
-            System.out.println("No records to edit!");
+            System.out.println(EDIT_NO_RECORDS_MSG);
             currentState = ConsoleViewState.MENU;
             return;
         }
@@ -77,24 +93,24 @@ public class ConsoleView {
 
         Contact selectedContact = allContacts.get(selectedContactIndex);
 
-        String editAction = readLine("Select a field (name, surname, number):")
+        String editAction = readLine(EDIT_SELECT_CONTACT_MSG)
                 .trim()
                 .toLowerCase();
 
-        boolean status = false;
+        boolean status;
         switch (editAction) {
             case "name":
-                String name = readLine("Enter name:");
+                String name = readLine(EDIT_ENTER_NAME_MSG);
                 status = contacts.updateContact(selectedContactIndex,
                         new Contact(name, selectedContact.getSurname(), selectedContact.getNumber()));
                 break;
             case "surname":
-                String surname = readLine("Enter surname:");
+                String surname = readLine(EDIT_ENTER_SURNAME_MSG);
                 status = contacts.updateContact(selectedContactIndex,
                         new Contact(selectedContact.getName(), surname, selectedContact.getNumber()));
                 break;
             case "number":
-                String number = readLine("Enter number:");
+                String number = readLine(EDIT_ENTER_NUMBER_MSG);
 
                 if (isValidNumber(number)) {
                     status = contacts.updateContact(selectedContactIndex,
@@ -102,7 +118,7 @@ public class ConsoleView {
                 } else {
                     status = contacts.updateContact(selectedContactIndex,
                             new Contact(selectedContact.getName(), selectedContact.getSurname(), ""));
-                    System.out.println("Entered number is not valid!");
+                    System.out.println(EDIT_NOT_VALID_NUMBER_MSG);
                 }
                 break;
             default:
@@ -111,7 +127,7 @@ public class ConsoleView {
         }
 
         if (status) {
-            System.out.println("The record updated!");
+            System.out.println(EDIT_UPDATE_MSG);
         }
 
         currentState = ConsoleViewState.MENU;
@@ -119,7 +135,7 @@ public class ConsoleView {
 
     private void removeContact() {
         if (contacts.getCount() == 0) {
-            System.out.println("No records to remove!");
+            System.out.println(REMOVE_NO_RECORDS_MSG);
             currentState = ConsoleViewState.MENU;
             return;
         }
@@ -132,7 +148,7 @@ public class ConsoleView {
         }
 
         if (contacts.remove(allContacts.get(selectedContactIndex))) {
-            System.out.println("The record removed!");
+            System.out.println(REMOVE_RECORD_REMOVED_MSG);
         }
 
         currentState = ConsoleViewState.MENU;
@@ -143,7 +159,7 @@ public class ConsoleView {
 
         int selected = -1;
         try {
-            selected = Integer.parseInt(readLine("Select a record:").trim()) - 1;
+            selected = Integer.parseInt(readLine(SELECT_RECORD_MSG).trim()) - 1;
         } catch (NumberFormatException e) {
             System.out.println("Wrong input! Err: " + e.getMessage());
         }
@@ -159,7 +175,7 @@ public class ConsoleView {
     }
 
     private void showMenu() {
-        switch (readLine("Enter action (add, remove, edit, count, list, exit):").trim().toLowerCase()) {
+        switch (readLine(SHOW_MENU_SELECT_MSG).trim().toLowerCase()) {
             case "add":
                 currentState = ConsoleViewState.ADD;
                 break;
@@ -185,17 +201,17 @@ public class ConsoleView {
     }
 
     private void addContact() {
-        String name = readLine("Enter the name:");
-        String surname = readLine("Enter the surname:");
-        String number = readLine("Enter the number:");
+        String name = readLine(ADD_ENTER_NAME_MSG);
+        String surname = readLine(ADD_ENTER_SURNAME_MSG);
+        String number = readLine(ADD_ENTER_NUMBER_MSG);
 
         if (!isValidNumber(number)) {
-            System.out.println("Wrong number format!");
+            System.out.println(ADD_WRONG_NUMBER_MSG);
             number = "";
         }
 
         if (contacts.addContact(name, surname, number)) {
-            System.out.println("The record added.");
+            System.out.println(ADD_RECORD_ADDED_MSG);
         }
 
         currentState = ConsoleViewState.MENU;
@@ -234,11 +250,6 @@ public class ConsoleView {
         }
 
         return true;
-    }
-
-    private String readLine() {
-        System.out.print("> ");
-        return scanner.nextLine();
     }
 
     private String readLine(String msg) {

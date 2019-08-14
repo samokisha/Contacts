@@ -1,6 +1,5 @@
 package contacts;
 
-import contacts.Contacts;
 import contacts.app.ConsoleView;
 import contacts.app.MemoryStorage;
 
